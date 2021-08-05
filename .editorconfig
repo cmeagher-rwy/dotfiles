@@ -1,0 +1,18 @@
+root = true
+
+[*]
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[.gitconfig]
+indent_style = tab
+indent_size = 4
+
+[.zshrc]
+indent_style = space
+indent_size = 2
+
+[*.{sh}]
+indent_style = space
+indent_size = 2
