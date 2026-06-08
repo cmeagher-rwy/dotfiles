@@ -1,3 +1,6 @@
+[user]
+	email = cpmeeg@gmail.com
+	name = Chris Meagher
 [core]
 	editor = code --new-window --wait
 	autocrlf = false
