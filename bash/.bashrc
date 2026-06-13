@@ -119,3 +119,5 @@ export EDITOR="code --wait"
 if [ -f "$HOME/.secrets" ]; then
     . "$HOME/.secrets"
 fi
+# starship (this should be placed at the end of this file)
+eval "$(starship init bash)"

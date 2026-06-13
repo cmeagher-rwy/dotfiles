@@ -1,3 +1,5 @@
-alias ll='ls -l'
-alias la='ls -A'
+alias aptlist='dpkg-query -W -f='"'"'${binary:Package} ${Version}\n'"'"''
 alias l='ls -CF'
+alias la='ls -A'
+alias ll='ls -l'
+alias reload='source ~/.bashrc'
