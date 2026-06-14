@@ -2,6 +2,8 @@
 
 ## windows setup
 
+These setup instructions are for Windows 11.
+
 * Install [Starship](https://starship.rs/)
   * `choco install starship`; or
   * `winget install --id Starship.Starship`

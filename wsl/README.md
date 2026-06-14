@@ -2,6 +2,8 @@
 
 ## wsl setup
 
+These setup instructions are for wsl2.
+
 * Install, or update, wsl (run from admin prompt, or using sudo)
   * `wsl --install` - install wsl
   * `wsl --update` - update wsl kernel and important components

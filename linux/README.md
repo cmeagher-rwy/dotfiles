@@ -1,15 +1,46 @@
 # linux
 
-## linux setup
+These setup instructions are for Debian.
+
+> N.B. See [linux tips](#linux-tips) for some general help with common operations.
+
+## Automated setup
+
+The [`install.sh`](../install.sh) script automates the full setup:
+
+```bash
+# Preview what will be done
+./install.sh --dry-run
+
+# Run the installer (idempotent — safe to run multiple times)
+./install.sh
+
+# Reload your shell (using an alias)
+reload
+```
+
+> The script must be run from within the cloned `~/.dotfiles` directory.
+> It is idempotent: completed steps are skipped on re-run.
+
+## Manual setup
+
+### System packages
 
 * Update distro
   * `sudo apt update && sudo apt upgrade -y` - update distro
-* Install packages on distro
+* Install packages
   * `sudo apt install build-essential curl fonts-jetbrains-mono git stow unzip wget -y`
+
+### Starship
+
 * Install [Starship](https://starship.rs/)
   * `curl -sS https://starship.rs/install.sh | sh`
-* Link dotfiles
+
+### Dotfiles (base)
+
+* Clone the repo
   * `git clone https://github.com/CMeeg/dotfiles.git ~/.dotfiles`
+* Link dotfiles
   * `cd ~/.dotfiles`
   * `stow --adopt -v bash git`
   * Accept or reject changes to dotfiles (if any)
@@ -21,9 +52,7 @@
 * Create `projects` directory
   * `mkdir ~/projects`
 
-> N.B. See [linux tips](./linux/README.md#linux-tips) for some general help with common operations.
-
-### gitkraken
+### GitKraken
 
 * Install GitKraken Client
   * `cd /tmp`
@@ -32,7 +61,7 @@
 * Run `gitkraken`
 * Follow the [setup steps](./gitkraken/README.md)
 
-### node
+### Node
 
 * [Install Node](https://nodejs.org/en/download)
   * `curl -o- https://fnm.vercel.app/install | bash` - install fnm
@@ -43,7 +72,7 @@
   * `corepack enable pnpm` - enable pnpm
   * `pnpm -v` - verify pnpm available
 
-### chrome
+### Chrome
 
 * Install Chrome
   * `cd /tmp`
@@ -52,7 +81,7 @@
 
 > N.B. Chrome can be launched from wsl if needed by running `google-chrome`
 
-### opencode
+### OpenCode
 
 * Install [opencode](https://opencode.ai/docs/windows-wsl)
   * `curl -fsSL https://opencode.ai/install | bash`
