@@ -9,8 +9,9 @@ These directories are symlinked into `$HOME` using `stow --adopt -v <package>`:
 
 | Directory | Contents |
 |-----------|----------|
-| `bash/` | `.bashrc`, `.bash_aliases`, `.bash_logout`, `.profile`, `.config/starship.toml` |
+| `bash/` | `.bashrc`, `.bash_aliases`, `.bash_logout`, `.profile` |
 | `git/` | `.gitconfig` |
+| `starship/` | `.config/starship.toml` — Starship prompt theme (Dracula) |
 | `agents/` | `.agents/skills/` — opencode agent skill definitions |
 | `opencode/` | `.config/opencode/` — opencode config (MCP servers, TUI theme) |
 
@@ -34,7 +35,7 @@ These files are not stowed but serve as reference for manual configuration:
 ## Conventions
 
 - **Shell**: Bash (`.bashrc` is primary config)
-- **Prompt**: Starship with Dracula theme (`bash/.config/starship.toml`)
+- **Prompt**: Starship with Dracula theme (`starship/.config/starship.toml`)
 - **Package managers**: `apt` (Debian), `winget`/`choco` (Windows)
 - **Dotfile management**: GNU Stow with `--adopt` flag
 - **Theme**: Dracula throughout
@@ -50,7 +51,7 @@ These files are not stowed but serve as reference for manual configuration:
 
 | Command | Description |
 |---------|-------------|
-| `stow --adopt -v bash git` | Link shell and git dotfiles |
+| `stow --adopt -v bash git starship` | Link shell, git, and starship dotfiles |
 | `stow --adopt -v agents opencode` | Link opencode config and agent skills |
 | `./install.sh` | Automated Debian setup (idempotent) |
 | `./install.sh --dry-run` | Preview what the installer would do |
@@ -62,7 +63,7 @@ These files are not stowed but serve as reference for manual configuration:
   existing target files into the stow directory. Review with `git diff` afterwards.
 - `.stow-local-ignore` tells stow to skip `.git`, `.DS_Store`, and `README.md`.
 - The `install.sh` script is idempotent and supports `--dry-run`.
-- Not every directory is a stow package — only `bash/`, `git/`, `agents/`, and
+- Not every directory is a stow package — only `bash/`, `git/`, `starship/`, `agents/`, and
   `opencode/` are managed with stow.
 - When adding new dotfiles, create them inside the appropriate stow package
   directory using the same relative path as they would have in `$HOME`.

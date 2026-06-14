@@ -42,7 +42,7 @@ reload
   * `git clone https://github.com/CMeeg/dotfiles.git ~/.dotfiles`
 * Link dotfiles
   * `cd ~/.dotfiles`
-  * `stow --adopt -v bash git`
+  * `stow --adopt -v bash git starship`
   * Accept or reject changes to dotfiles (if any)
     * View the diff of the dotfiles repo
     * Accept/merge/reject changes

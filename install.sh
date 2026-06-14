@@ -81,13 +81,14 @@ install_starship() {
 }
 
 stow_base_dotfiles() {
-    print_status "Stowing base dotfiles (bash, git)..."
+    print_status "Stowing base dotfiles (bash, git, starship)..."
     if is_symlinked "$HOME/.bashrc" "$DOTFILES_REPO/bash/.bashrc" &&
-       is_symlinked "$HOME/.gitconfig" "$DOTFILES_REPO/git/.gitconfig"; then
-        print_skip "Base dotfiles (bash, git) are already stowed"
+       is_symlinked "$HOME/.gitconfig" "$DOTFILES_REPO/git/.gitconfig" &&
+       is_symlinked "$HOME/.config/starship.toml" "$DOTFILES_REPO/starship/.config/starship.toml"; then
+        print_skip "Base dotfiles (bash, git, starship) are already stowed"
         return
     fi
-    run "cd $DOTFILES_REPO && stow --adopt -v bash git"
+    run "cd $DOTFILES_REPO && stow --adopt -v bash git starship"
     if [ "$DRY_RUN" = true ]; then
         print_dry "source $HOME/.bashrc"
     else

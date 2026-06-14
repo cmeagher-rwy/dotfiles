@@ -42,8 +42,8 @@
 			"keys": "ctrl+w"
 		},
 		{
-			"keys": "shift+enter",
-			"id": "User.sendInput.ShiftEnterCustom"
+			"id": "User.sendInput.ShiftEnterCustom",
+			"keys": "shift+enter"
 		}
 	],
 	"newTabMenu": [

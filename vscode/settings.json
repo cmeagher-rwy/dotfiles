@@ -58,6 +58,7 @@
 	"git.openRepositoryInParentFolders": "never",
 	"github.copilot.enable": {
 		"*": false,
+		"markdown": false,
 		"plaintext": false,
 		"scminput": false
 	},
@@ -116,7 +117,19 @@
 	"workbench.colorTheme": "Dracula Theme",
 	"workbench.iconTheme": "vscode-icons",
 	"workbench.tree.enableStickyScroll": true,
+	"[css]": {
+		"editor.defaultFormatter": "vscode.css-language-features"
+	},
+	"[html]": {
+		"editor.defaultFormatter": "vscode.html-language-features"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
 	"[markdown]": {
 		"editor.defaultFormatter": "yzhang.markdown-all-in-one"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
 	}
 }

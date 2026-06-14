@@ -49,6 +49,6 @@ function npm { corepack npm $args }
 function npx { corepack npx $args }
 
 # Aliases
-if(!(Test-Path alias:which)) {
+if (!(Test-Path alias:which)) {
   New-Alias which Get-Command
 }

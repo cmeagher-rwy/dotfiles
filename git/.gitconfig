@@ -13,6 +13,8 @@
 	autosetuprebase = always
 [fetch]
 	prune = true
+[pull]
+	rebase = true
 [push]
 	followTags = true
 [diff]
