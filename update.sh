@@ -75,6 +75,16 @@ update_starship() {
     print_ok "Starship updated"
 }
 
+update_opencode() {
+    print_status "Updating OpenCode..."
+    if ! is_cmd opencode; then
+        print_skip "OpenCode is not installed — skipping"
+        return
+    fi
+    run "opencode upgrade"
+    print_ok "OpenCode updated"
+}
+
 update_superpowers() {
     print_status "Updating Superpowers..."
     if [ ! -d "$SUPERPOWERS_DIR/.git" ]; then
@@ -112,7 +122,7 @@ restow() {
         print_warn "Dotfiles repo not found at $DOTFILES_REPO — skipping restow"
         return
     fi
-    run "cd $DOTFILES_REPO && git stash && git pull && stow --adopt --no-folding -v agents bash git opencode starship && git stash pop"
+    run "cd $DOTFILES_REPO && git stash && git pull && stow --adopt --no-folding -v agents bash git opencode starship && git stash pop || true"
     print_ok "Dotfiles restowed"
     print_warn "Review any changes with 'git diff' in $DOTFILES_REPO"
     print_warn "If changes look good, commit and push them"
@@ -148,6 +158,7 @@ main() {
     update_system
     update_bun
     update_starship
+    update_opencode
     update_superpowers
     update_opendesign
     restow

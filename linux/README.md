@@ -159,6 +159,8 @@ reload
   * `curl -sS https://starship.rs/install.sh | sh`
 * Update Bun
   * `bun upgrade`
+* Update OpenCode
+  * `opencode upgrade`
 * Update Superpowers
   * `cd ~/.local/share/opencode/packages/superpowers`
   * `git pull`
@@ -184,6 +186,10 @@ reload
 
 ## linux tips
 
+* Update a package from a `.deb` file
+  * Download the `.deb` file to local disk e.g. to `~/`
+  * Run `sudo apt install ~/path-to-package.deb`
+  * Delete the downloaded file when done
 * If you need to kill a program
   * `pidof <program>` - find pid(s) of program
   * `kill -<signal> <pid(s)>` - send kill signal to pid(s), `15` is SIGTERM, `9` is SIGKILL
