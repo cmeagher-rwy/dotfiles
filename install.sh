@@ -46,6 +46,22 @@ is_symlinked() {
     [ -L "$target" ] && [ "$(readlink -f "$target")" = "$(readlink -f "$expected_source")" ]
 }
 
+is_repo_behind() {
+    local repo_dir="$1"
+    if [ "$DRY_RUN" = true ]; then
+        return 0
+    fi
+    (cd "$repo_dir" && git fetch origin) 2>/dev/null || return 1
+    local behind
+    behind=$(cd "$repo_dir" && git rev-list --count HEAD..@{u} 2>/dev/null) || return 1
+    [ "$behind" -gt 0 ]
+}
+
+is_opencode_v2() {
+    is_cmd opencode || return 1
+    opencode --version 2>/dev/null | grep -qE 'v?2\.'
+}
+
 # ---------- Sections ----------
 
 update_system() {
@@ -171,11 +187,14 @@ install_chrome() {
 
 install_opencode() {
     print_status "Installing opencode..."
-    if is_cmd opencode; then
-        print_skip "opencode is already installed"
+    if is_opencode_v2; then
+        print_skip "opencode v2 is already installed"
         return
     fi
-    run "curl -fsSL https://opencode.ai/install | bash"
+    if is_cmd opencode; then
+        print_warn "opencode v1 detected — the installer will replace it with v2"
+    fi
+    run "curl -fsSL https://opencode.ai/v2/install | bash"
     print_ok "opencode installed"
 }
 
@@ -186,8 +205,14 @@ install_superpowers() {
     local config_file="$HOME/.config/opencode/opencode.jsonc"
 
     # Clone if not already present
-    if [ -d "$superpowers_dir" ]; then
+    if [ -d "$superpowers_dir/.git" ]; then
         print_skip "Superpowers is already cloned"
+        if is_repo_behind "$superpowers_dir"; then
+            run "cd $superpowers_dir && git pull"
+            print_ok "Superpowers updated"
+        else
+            print_skip "Superpowers is already up to date"
+        fi
     else
         run "git clone https://github.com/obra/superpowers.git $superpowers_dir"
         print_ok "Superpowers cloned"

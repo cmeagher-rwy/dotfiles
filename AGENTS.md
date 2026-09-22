@@ -22,6 +22,7 @@ These directories are symlinked into `$HOME` using `stow --adopt -v <package>`:
 | `windows/` | Windows 11 setup guide |
 | `wsl/` | WSL 2 `.wslconfig` and setup guide |
 | `gitkraken/` | GitKraken setup guide |
+| `opendesign/` | OpenDesign notes — slow `git fetch` issue + repo prune command |
 
 ### Reference configs
 These files are not stowed but serve as reference for manual configuration:
@@ -44,6 +45,7 @@ These files are not stowed but serve as reference for manual configuration:
   - 2-space indent for JSON, JSONC, YAML, TOML, Shell
   - 4-space indent for `.gitconfig`
   - Shell scripts: `set -euo pipefail`, use `#!/usr/bin/env bash`
+  - Markdown: no hard-wrapping — keep paragraphs (and long bullets) on single lines and let the editor wrap instead
 - **Secrets**: Place private env vars in `~/.secrets` (gitignored)
 - **Editor**: VS Code (`code --wait`) as core editor and git editor
 

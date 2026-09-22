@@ -40,6 +40,9 @@ is_cmd() { command -v "$1" &>/dev/null; }
 
 is_repo_behind() {
     local repo_dir="$1"
+    if [ "$DRY_RUN" = true ]; then
+        return 0
+    fi
     (cd "$repo_dir" && git fetch origin) 2>/dev/null || return 1
     local behind
     behind=$(cd "$repo_dir" && git rev-list --count HEAD..@{u} 2>/dev/null) || return 1
@@ -112,7 +115,7 @@ update_opendesign() {
     if pgrep -f "open-design" > /dev/null 2>&1; then
         run "pkill -f open-design"
     fi
-    run "cd $OPENDESIGN_DIR && git stash && git pull && yes | pnpm install && pnpm --filter @open-design/web build"
+    run "cd $OPENDESIGN_DIR && git stash && git pull --ff-only && yes | pnpm install && pnpm --filter @open-design/web build"
     print_ok "OpenDesign updated"
 }
 

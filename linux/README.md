@@ -130,8 +130,8 @@ reload
 * Add [Superpowers](https://github.com/obra/superpowers)
   * Clone superpowers into a standalone location
     * `git clone https://github.com/obra/superpowers.git ~/.local/share/opencode/packages/superpowers`
-  * In `~/.config\opencode/opencode.jsonc`, add the plugin using the local path instead of the git URL:
-    * `"plugin": ["~/.local/share/opencode/packages/superpowers"]`
+  * In `~/.config\opencode/opencode.jsonc`, the plugin uses the local path (V2 shape; requires superpowers v6.4.1+ and OpenCode 2.0.4+):
+    * `"plugins": ["~/.local/share/opencode/packages/superpowers"]`
 * Run `opencode`
 * Run `/connect` and connect a provider
 
@@ -164,11 +164,14 @@ reload
 * Update Superpowers
   * `cd ~/.local/share/opencode/packages/superpowers`
   * `git pull`
+  * Keep it at v6.4.1+ when OpenCode 2 is installed
+* One-time OpenCode v1 → v2 migration
+  * See `opencode/.config/opencode/README.md` in this repo
 * Update OpenDesign
   * `od stop`
   * `cd ~/.opendesign`
   * `git stash`
-  * `git pull`
+  * `git pull --ff-only`
   * `pnpm install`
   * `pnpm --filter @open-design/web build`
 * Restow
