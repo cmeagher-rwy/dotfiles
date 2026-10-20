@@ -136,7 +136,9 @@ update_opendesign() {
         run "pkill -f open-design"
     fi
     run "cd $OPENDESIGN_DIR && git stash && git pull --ff-only && yes | pnpm install && pnpm --filter @open-design/web build"
+    run "nohup $OPENDESIGN_DIR/node_modules/.bin/od --port 7456 --no-open >/dev/null 2>&1 & disown"
     print_ok "OpenDesign updated"
+    print_ok "OpenDesign daemon restarted (http://127.0.0.1:7456)"
 }
 
 restow() {
