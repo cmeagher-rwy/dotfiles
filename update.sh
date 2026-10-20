@@ -78,6 +78,16 @@ update_starship() {
     print_ok "Starship updated"
 }
 
+update_superfile() {
+    print_status "Updating superfile..."
+    if ! is_cmd spf; then
+        print_skip "superfile is not installed — skipping"
+        return
+    fi
+    run 'bash -c "$(curl -sLo- https://superfile.dev/install.sh)"'
+    print_ok "superfile updated"
+}
+
 update_opencode() {
     print_status "Updating OpenCode..."
     if ! is_cmd opencode; then
@@ -135,7 +145,7 @@ restow() {
         print_warn "Dotfiles repo not found at $DOTFILES_REPO — skipping restow"
         return
     fi
-    run "cd $DOTFILES_REPO && git stash && git pull && stow --adopt --no-folding -v agents bash git opencode starship && git stash pop || true"
+    run "cd $DOTFILES_REPO && git stash && git pull && stow --adopt --no-folding -v agents bash git opencode starship superfile && git stash pop || true"
     print_ok "Dotfiles restowed"
     print_warn "Review any changes with 'git diff' in $DOTFILES_REPO"
     print_warn "If changes look good, commit and push them"
@@ -171,6 +181,7 @@ main() {
     update_system
     update_bun
     update_starship
+    update_superfile
     update_opencode
     update_claude_code
     update_superpowers

@@ -100,15 +100,26 @@ install_starship() {
     print_ok "Starship installed"
 }
 
-stow_base_dotfiles() {
-    print_status "Stowing base dotfiles (bash, git, starship)..."
-    if is_symlinked "$HOME/.bashrc" "$DOTFILES_REPO/bash/.bashrc" &&
-       is_symlinked "$HOME/.gitconfig" "$DOTFILES_REPO/git/.gitconfig" &&
-       is_symlinked "$HOME/.config/starship.toml" "$DOTFILES_REPO/starship/.config/starship.toml"; then
-        print_skip "Base dotfiles (bash, git, starship) are already stowed"
+install_superfile() {
+    print_status "Installing superfile..."
+    if is_cmd spf; then
+        print_skip "superfile is already installed"
         return
     fi
-    run "cd $DOTFILES_REPO && stow --adopt --no-folding -v bash git starship"
+    run 'bash -c "$(curl -sLo- https://superfile.dev/install.sh)"'
+    print_ok "superfile installed (run 'spf' to start)"
+}
+
+stow_base_dotfiles() {
+    print_status "Stowing base dotfiles (bash, git, starship, superfile)..."
+    if is_symlinked "$HOME/.bashrc" "$DOTFILES_REPO/bash/.bashrc" &&
+       is_symlinked "$HOME/.gitconfig" "$DOTFILES_REPO/git/.gitconfig" &&
+       is_symlinked "$HOME/.config/starship.toml" "$DOTFILES_REPO/starship/.config/starship.toml" &&
+       is_symlinked "$HOME/.config/superfile/config.toml" "$DOTFILES_REPO/superfile/.config/superfile/config.toml"; then
+        print_skip "Base dotfiles (bash, git, starship, superfile) are already stowed"
+        return
+    fi
+    run "cd $DOTFILES_REPO && stow --adopt --no-folding -v bash git starship superfile"
     if [ "$DRY_RUN" = true ]; then
         print_dry "source $HOME/.bashrc"
     else
@@ -344,6 +355,7 @@ main() {
     update_system
     install_packages
     install_starship
+    install_superfile
     stow_base_dotfiles
     create_projects_dir
     install_gitkraken

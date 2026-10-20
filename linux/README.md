@@ -64,13 +64,19 @@ reload
 * Install [Starship](https://starship.rs/)
   * `curl -sS https://starship.rs/install.sh | sh`
 
+### superfile
+
+* Install [superfile](https://superfile.dev/getting-started/installation/)
+  * `bash -c "$(curl -sLo- https://superfile.dev/install.sh)"`
+  * Run `spf` to start
+
 ### Dotfiles (base)
 
 * Clone the repo
   * `git clone https://github.com/CMeeg/dotfiles.git ~/.dotfiles`
 * Link dotfiles
   * `cd ~/.dotfiles`
-  * `stow --adopt --no-folding -v bash git starship`
+  * `stow --adopt --no-folding -v bash git starship superfile`
   * Accept or reject changes to dotfiles (if any)
     * View the diff of the dotfiles repo
     * Accept/merge/reject changes
@@ -161,6 +167,8 @@ reload
   * `sudo apt update && sudo apt upgrade -y` - update distro
 * Update Starship
   * `curl -sS https://starship.rs/install.sh | sh`
+* Update superfile
+  * `bash -c "$(curl -sLo- https://superfile.dev/install.sh)"` - re-running the installer fetches the latest release
 * Update Bun
   * `bun upgrade`
 * Update OpenCode
@@ -184,7 +192,7 @@ reload
   * `cd ~/.dotfiles`
   * `git stash`
   * `git pull`
-  * `stow --adopt --no-folding -v agents bash git opencode starship`
+  * `stow --adopt --no-folding -v agents bash git opencode starship superfile`
   * `git stash pop`
   * Accept or reject changes to dotfiles (if any)
     * View the diff of the dotfiles repo
