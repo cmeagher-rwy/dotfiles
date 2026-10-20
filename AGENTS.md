@@ -23,6 +23,7 @@ These directories are symlinked into `$HOME` using `stow --adopt -v <package>`:
 | `wsl/` | WSL 2 `.wslconfig` and setup guide |
 | `gitkraken/` | GitKraken setup guide |
 | `opendesign/` | OpenDesign notes — slow `git fetch` issue + repo prune command |
+| `claude/` | Claude Code setup guide (Linux/WSL and Windows) |
 
 ### Reference configs
 These files are not stowed but serve as reference for manual configuration:

@@ -290,6 +290,17 @@ install_opendesign() {
     print_ok "OpenDesign installed"
 }
 
+install_claude_code() {
+    print_status "Installing Claude Code..."
+    if is_cmd claude; then
+        print_skip "Claude Code is already installed"
+        return
+    fi
+    run "curl -fsSL https://claude.ai/install.sh | bash"
+    print_ok "Claude Code installed"
+    print_warn "Run 'claude' and follow the sign-in steps — see claude/README.md"
+}
+
 stow_opencode_dotfiles() {
     print_status "Stowing opencode dotfiles (agents, opencode)..."
     if is_symlinked "$HOME/.agents/skills/find-docs/SKILL.md" "$DOTFILES_REPO/agents/.agents/skills/find-docs/SKILL.md" &&
@@ -340,6 +351,7 @@ main() {
     install_bun
     install_chrome
     install_opencode
+    install_claude_code
     install_superpowers
     install_opendesign
     stow_opencode_dotfiles

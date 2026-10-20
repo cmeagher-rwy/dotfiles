@@ -88,6 +88,16 @@ update_opencode() {
     print_ok "OpenCode updated"
 }
 
+update_claude_code() {
+    print_status "Updating Claude Code..."
+    if ! is_cmd claude; then
+        print_skip "Claude Code is not installed — skipping"
+        return
+    fi
+    run "claude update"
+    print_ok "Claude Code updated"
+}
+
 update_superpowers() {
     print_status "Updating Superpowers..."
     if [ ! -d "$SUPERPOWERS_DIR/.git" ]; then
@@ -162,6 +172,7 @@ main() {
     update_bun
     update_starship
     update_opencode
+    update_claude_code
     update_superpowers
     update_opendesign
     restow

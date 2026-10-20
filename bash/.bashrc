@@ -134,6 +134,11 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # opencode
 export PATH="$HOME/.opencode/bin:$PATH"
 
+# local binaries (herdr, etc.)
+if [ -d "$HOME/.local/bin" ]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
 # opendesign
 od() {
   local _od_bin="$HOME/.opendesign/node_modules/.bin/od"

@@ -87,7 +87,7 @@ reload
   * `wget https://release.gitkraken.com/linux/gitkraken-amd64.deb`
   * `sudo apt install ./gitkraken-amd64.deb -y`
 * Run `gitkraken`
-* Follow the [setup steps](./gitkraken/README.md)
+* Follow the [setup steps](../gitkraken/README.md)
 
 ### Node
 
@@ -151,6 +151,10 @@ reload
   * Open `http://localhost:7456/` in a browser
   * The first time you open this you will need to do some initial setup
 
+### Claude Code
+
+* See [claude/README.md](../claude/README.md) for install and update instructions (Linux/WSL and Windows)
+
 ## Manual updates
 
 * Update distro
@@ -174,6 +178,8 @@ reload
   * `git pull --ff-only`
   * `pnpm install`
   * `pnpm --filter @open-design/web build`
+* Update Claude Code
+  * `claude update`
 * Restow
   * `cd ~/.dotfiles`
   * `git stash`
