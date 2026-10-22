@@ -73,7 +73,7 @@ update_system() {
 
 install_packages() {
     print_status "Installing base packages..."
-    local packages=(build-essential curl fonts-jetbrains-mono stow unzip wget)
+    local packages=(build-essential curl fonts-jetbrains-mono python-is-python3 python3 stow unzip wget)
     local missing=()
 
     for pkg in "${packages[@]}"; do
@@ -324,6 +324,18 @@ stow_opencode_dotfiles() {
     print_warn "Review any changes with 'git diff' in $DOTFILES_REPO"
 }
 
+stow_claude_dotfiles() {
+    print_status "Stowing Claude Code dotfiles (claude)..."
+    if is_symlinked "$HOME/.claude/settings.json" "$DOTFILES_REPO/claude/.claude/settings.json"; then
+        print_skip "Claude Code dotfiles (claude) are already stowed"
+        return
+    fi
+    # --no-folding keeps ~/.claude a real directory so credentials/history never land in the repo
+    run "cd $DOTFILES_REPO && stow --adopt --no-folding -v claude"
+    print_ok "Claude Code dotfiles stowed"
+    print_warn "Review any changes with 'git diff' in $DOTFILES_REPO"
+}
+
 # ---------- Main ----------
 
 main() {
@@ -367,6 +379,7 @@ main() {
     install_superpowers
     install_opendesign
     stow_opencode_dotfiles
+    stow_claude_dotfiles
 
     echo ""
     printf "${GREEN}✨ ${BOLD}Done.${RESET}\n"
