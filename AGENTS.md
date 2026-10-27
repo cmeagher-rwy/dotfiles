@@ -15,7 +15,7 @@ These directories are symlinked into `$HOME` using `stow --adopt -v <package>`:
 | `superfile/` | `.config/superfile/config.toml` — superfile (`spf`) config |
 | `agents/` | `.agents/skills/` — opencode agent skill definitions |
 | `opencode/` | `.config/opencode/` — opencode config (MCP servers, TUI theme) |
-| `claude/` | `.claude/` — Claude Code `settings.json` and mods (also holds the setup guide `README.md`) |
+| `claude/` | `.claude/` — Claude Code `settings.json`, mods, and skills (also holds the setup guide `README.md`) |
 
 ### Setup guides
 | Directory | Contents |
@@ -57,7 +57,7 @@ These files are not stowed but serve as reference for manual configuration:
 |---------|-------------|
 | `stow --adopt --no-folding -v bash git starship superfile` | Link shell, git, starship, and superfile dotfiles |
 | `stow --adopt --no-folding -v agents opencode` | Link opencode config and agent skills |
-| `stow --adopt --no-folding -v claude` | Link Claude Code settings and mods |
+| `stow --adopt --no-folding -v claude` | Link Claude Code settings, mods, and skills |
 | `./install.sh` | Automated Debian setup (idempotent) |
 | `./install.sh --dry-run` | Preview what the installer would do |
 | `source ~/.bashrc` | Reload bash configuration |
@@ -70,6 +70,6 @@ These files are not stowed but serve as reference for manual configuration:
 - The `install.sh` script is idempotent and supports `--dry-run`.
 - Not every directory is a stow package — only `bash/`, `git/`, `starship/`, `superfile/`, `agents/`,
   `opencode/`, and `claude/` are managed with stow.
-- Only commit hand-written Claude Code config under `claude/.claude/` (settings, mods, `CLAUDE.md`, etc.) — never credentials, history, sessions, or plugin caches. `.gitignore` allowlists the safe paths. Always stow `claude` with `--no-folding` so `~/.claude` stays a real directory.
+- Only commit hand-written Claude Code config under `claude/.claude/` (settings, mods, skills, `CLAUDE.md`, etc.) — never credentials, history, sessions, or plugin caches. `.gitignore` allowlists the safe paths. Always stow `claude` with `--no-folding` so `~/.claude` stays a real directory.
 - When adding new dotfiles, create them inside the appropriate stow package
   directory using the same relative path as they would have in `$HOME`.

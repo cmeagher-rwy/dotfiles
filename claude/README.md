@@ -27,6 +27,14 @@
 
 * Claude Code rewrites `settings.json` when you change settings or install plugins — if `ls -l ~/.claude/settings.json` shows it's no longer a symlink, re-run the stow command to adopt the changes back into the repo
 
+### Skills
+
+Personal skills live in `claude/.claude/skills/<name>/` and are linked into `~/.claude/skills/`:
+
+* New skill — create it in `claude/.claude/skills/<name>/SKILL.md`, then run `stow --no-folding -v claude` (from the dotfiles root)
+* Existing skill already in `~/.claude/skills/<name>/` — copy it into `claude/.claude/skills/<name>/`, then run `stow --adopt --no-folding -v claude` to replace the original with a symlink
+* `~/.claude/skills/synced/` holds skills Claude Code syncs down from claude.ai — it's managed by Claude Code, so it's gitignored and not part of the stow package
+
 ### Tips
 
 * `claude update` - apply an update immediately (reports the version change, or that you're already up to date)

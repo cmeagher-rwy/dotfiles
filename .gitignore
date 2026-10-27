@@ -10,3 +10,6 @@ claude/.claude/*
 !claude/.claude/keybindings.json
 !claude/.claude/agents/
 !claude/.claude/commands/
+!claude/.claude/skills/
+# skills synced down from claude.ai are managed by Claude Code, not hand-written
+claude/.claude/skills/synced/
