@@ -240,6 +240,17 @@ allow_unprivileged_low_ports() {
     print_ok "Unprivileged port start set to 80"
 }
 
+install_aspire() {
+    print_status "Installing Aspire CLI..."
+    if is_cmd aspire || [ -x "$HOME/.aspire/bin/aspire" ]; then
+        print_skip "Aspire CLI is already installed"
+        return
+    fi
+    # --skip-path: ~/.bashrc is stowed, so PATH is set there instead of letting the installer append to it
+    run "curl -sSL https://aspire.dev/install.sh | bash -s -- --skip-path"
+    print_ok "Aspire CLI installed"
+}
+
 install_opencode() {
     print_status "Installing opencode..."
     if is_opencode_v2; then
@@ -420,6 +431,7 @@ main() {
     install_chrome
     install_caddy
     allow_unprivileged_low_ports
+    install_aspire
     install_opencode
     install_claude_code
     install_superpowers

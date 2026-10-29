@@ -138,6 +138,15 @@ reload
 
 > N.B. The sysctl is used instead of `sudo setcap cap_net_bind_service=+ep $(which caddy)` because `setcap` is stored on the binary and lost whenever an upgrade replaces it. The sysctl applies machine-wide, which is fine for a dev machine.
 
+### Aspire CLI
+
+* Install the [Aspire CLI](https://aspire.dev/get-started/install-cli/)
+  * `curl -sSL https://aspire.dev/install.sh | bash -s -- --skip-path` - installs to `~/.aspire/bin`
+  * `--skip-path` stops the installer appending to `~/.bashrc` (which is stowed) — `bash/.bashrc` already adds `~/.aspire/bin` to `PATH`
+  * `reload` - reload bash (using alias)
+  * `aspire --version` - verify the CLI is installed
+* Running Aspire apps also needs the [.NET SDK](https://aspire.dev/get-started/prerequisites/) and a container runtime
+
 ### OpenCode
 
 * Install [opencode](https://opencode.ai/docs/windows-wsl)
@@ -186,6 +195,8 @@ reload
   * `curl -sS https://starship.rs/install.sh | sh`
 * Update superfile
   * `bash -c "$(curl -sLo- https://superfile.dev/install.sh)"` - re-running the installer fetches the latest release
+* Update Aspire CLI
+  * `curl -sSL https://aspire.dev/install.sh | bash -s -- --skip-path` - re-running the installer fetches the latest release
 * Update Bun
   * `bun upgrade`
 * Update OpenCode

@@ -134,6 +134,11 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # opencode
 export PATH="$HOME/.opencode/bin:$PATH"
 
+# aspire
+if [ -d "$HOME/.aspire/bin" ]; then
+  export PATH="$HOME/.aspire/bin:$PATH"
+fi
+
 # local binaries (herdr, etc.)
 if [ -d "$HOME/.local/bin" ]; then
   export PATH="$HOME/.local/bin:$PATH"

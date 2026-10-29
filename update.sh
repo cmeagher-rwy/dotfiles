@@ -88,6 +88,17 @@ update_superfile() {
     print_ok "superfile updated"
 }
 
+update_aspire() {
+    print_status "Updating Aspire CLI..."
+    if [ ! -x "$HOME/.aspire/bin/aspire" ]; then
+        print_skip "Aspire CLI is not installed — skipping"
+        return
+    fi
+    # Re-running the installer fetches the latest stable release
+    run "curl -sSL https://aspire.dev/install.sh | bash -s -- --skip-path"
+    print_ok "Aspire CLI updated"
+}
+
 update_opencode() {
     print_status "Updating OpenCode..."
     if ! is_cmd opencode; then
@@ -184,6 +195,7 @@ main() {
     update_bun
     update_starship
     update_superfile
+    update_aspire
     update_opencode
     update_claude_code
     update_superpowers
