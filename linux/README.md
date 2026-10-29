@@ -121,6 +121,23 @@ reload
 
 > N.B. Chrome can be launched from wsl if needed by running `google-chrome`
 
+### Caddy
+
+* [Install Caddy](https://caddyserver.com/docs/install#debian-ubuntu-raspbian)
+  * `sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl`
+  * `curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg`
+  * `curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list`
+  * `sudo chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg /etc/apt/sources.list.d/caddy-stable.list`
+  * `sudo apt update && sudo apt install -y caddy`
+* Disable the bundled systemd service — it serves a default page on port 80, which blocks projects that run `caddy run` themselves
+  * `sudo systemctl disable --now caddy`
+* Allow unprivileged processes to bind ports 80 and above, so `caddy run` can listen on 80/443 as your own user
+  * `echo 'net.ipv4.ip_unprivileged_port_start=80' | sudo tee /etc/sysctl.d/50-unprivileged-ports.conf`
+  * `sudo sysctl --system`
+* Updates come through `sudo apt upgrade`
+
+> N.B. The sysctl is used instead of `sudo setcap cap_net_bind_service=+ep $(which caddy)` because `setcap` is stored on the binary and lost whenever an upgrade replaces it. The sysctl applies machine-wide, which is fine for a dev machine.
+
 ### OpenCode
 
 * Install [opencode](https://opencode.ai/docs/windows-wsl)

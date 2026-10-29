@@ -196,6 +196,50 @@ install_chrome() {
     print_ok "Google Chrome installed"
 }
 
+install_caddy() {
+    print_status "Installing Caddy..."
+    local just_installed=false
+    if is_apt_installed caddy; then
+        print_skip "Caddy is already installed"
+    else
+        # Adds Caddy's apt repo so 'apt upgrade' keeps it updated
+        run "sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl"
+        run "curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor --yes -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg"
+        run "curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list >/dev/null"
+        run "sudo chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg /etc/apt/sources.list.d/caddy-stable.list"
+        run "sudo apt update"
+        run "sudo apt install -y caddy"
+        print_ok "Caddy installed"
+        just_installed=true
+    fi
+
+    # The package starts a 'caddy' systemd service serving a default page on :80,
+    # which blocks projects running 'caddy run' themselves. Upgrades keep it disabled.
+    if [ "$just_installed" = true ] ||
+       systemctl is-enabled --quiet caddy 2>/dev/null ||
+       systemctl is-active --quiet caddy 2>/dev/null; then
+        run "sudo systemctl disable --now caddy"
+        print_ok "Caddy systemd service disabled"
+    else
+        print_skip "Caddy systemd service is already disabled"
+    fi
+}
+
+allow_unprivileged_low_ports() {
+    print_status "Allowing unprivileged processes to bind ports 80 and above..."
+    # Lets 'caddy run' (or any dev server) bind 80/443 without root. Unlike setcap,
+    # this survives binary upgrades. Fine for a dev machine.
+    local conf="/etc/sysctl.d/50-unprivileged-ports.conf"
+    local setting="net.ipv4.ip_unprivileged_port_start=80"
+    if grep -qxF "$setting" "$conf" 2>/dev/null; then
+        print_skip "Unprivileged port start is already set to 80"
+        return
+    fi
+    run "echo '$setting' | sudo tee $conf >/dev/null"
+    run "sudo sysctl --system >/dev/null"
+    print_ok "Unprivileged port start set to 80"
+}
+
 install_opencode() {
     print_status "Installing opencode..."
     if is_opencode_v2; then
@@ -374,6 +418,8 @@ main() {
     install_node
     install_bun
     install_chrome
+    install_caddy
+    allow_unprivileged_low_ports
     install_opencode
     install_claude_code
     install_superpowers
